@@ -4,6 +4,7 @@ dotenv.config();
 import cors from "cors";
 import express, { Application, Request, Response } from "express";
 import connectDB from "./config/db";
+import authRoutes from "./routes/auth";
 async function main() {
   await connectDB();
 
@@ -12,6 +13,7 @@ async function main() {
 
   app.use(cors());
   app.use(express.json());
+  app.use("/api/auth", authRoutes);
 
   app.get("/api", (req: Request, res: Response) => {
     res.json({ message: "Backend is running!" });

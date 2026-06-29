@@ -2,16 +2,18 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-const getEnvVar = (key: string): string => {
+const getRequiredEnvVar = (key: string): string => {
   const value = process.env[key];
   if (!value) {
-    throw new Error(`Missing environment variable: ${key}`);
+    throw new Error(`Required environment variable "${key}" is not defined`);
   }
   return value;
 };
 
-export const ENV = {
+const ENV = {
   PORT: process.env.PORT || "5000",
-  MONGO_URI: getEnvVar("MONGO_URI"),
-  JWT_SECRET: getEnvVar("JWT_SECRET"),
+  MONGO_URI: getRequiredEnvVar("MONGO_URI"),
+  JWT_SECRET: getRequiredEnvVar("JWT_SECRET"),
 };
+
+export default ENV;
